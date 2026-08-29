@@ -30,7 +30,7 @@ export function DesktopUi() {
                 <AboutMe />
             </Rnd>
 
-            <div className="absolute bottom-20 left-68">
+            <div className="absolute bottom-1/11 left-1/7">
                 <StartMenu visible={startMenuVisible} />
             </div>
 

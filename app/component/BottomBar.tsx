@@ -53,20 +53,20 @@ export function BottomBar({ z_index = 0, openApp, startMenuVisible }: BottomBarP
 
     return (
         <div className={`w-[1380px] h-16 px-4 py-3 bg-gradient-to-br from-black/40 to-black/20 rounded-2xl shadow-[0px_-2px_12px_0px_rgba(0,0,0,0.15)] border-white/10 backdrop-blur-md inline-flex justify-between items-center`}>
-            <div onClick={() => setIsStartMenuOpen((prev) => !prev)} className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center">
+            <div onClick={() => setIsStartMenuOpen((prev) => !prev)} className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center text-white">
                 <AppWindow />
             </div>
             <div className="size- flex justify-start items-center gap-3">
-                <div onClick={()=>handleOpenedApp("folder")} className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center">
+                <div onClick={()=>handleOpenedApp("folder")} className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center text-white">
                     <Folder />
                 </div>
 
-                <div onClick={()=>handleOpenedApp("terminal")} className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center">
+                <div onClick={()=>handleOpenedApp("terminal")} className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center text-white">
                     <Terminal />
                 </div>
             </div>
             <div className="size- flex justify-start items-center gap-4">
-                <div className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center">
+                <div className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center text-white">
                     <Cog />
                 </div>
                 <div className="justify-start text-white text-sm font-semibold font-['Inter']">{time}</div>
