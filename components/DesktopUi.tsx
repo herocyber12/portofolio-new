@@ -8,8 +8,29 @@ import { AboutMe } from "@/components/AboutMe";
 
 export function DesktopUi() {
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
-    const [openedApp, setOpenedApp] = useState<string[]>([])
 
+    const [openedAppsBySource, setOpenedAppsBySource] = useState({
+        startMenu: [] as string[],
+        bottomBar: [] as string[],
+    });
+
+    const handleOpenedApp = (
+        source: "startMenu" | "bottomBar",
+        apps: string[]
+    ) => {
+        setOpenedAppsBySource((prev) => ({
+            ...prev,
+            [source]: apps,
+        }));
+    };
+
+    const openedApp = [
+        ...new Set([
+            ...openedAppsBySource.startMenu,
+            ...openedAppsBySource.bottomBar,
+        ]),
+    ];
+    
     useEffect(() => {
         console.log(openedApp)
     },[openedApp])
@@ -31,11 +52,18 @@ export function DesktopUi() {
             </Rnd>
 
             <div className="absolute bottom-1/11 left-1/7">
-                <StartMenu visible={startMenuVisible} />
+                <StartMenu
+                    visible={startMenuVisible}
+                    openApp={(apps) => handleOpenedApp("startMenu", apps)}
+                />
             </div>
 
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
-                <BottomBar z_index={10} startMenuVisible={setStartMenuVisible} openApp={setOpenedApp}/>
+                <BottomBar
+                    z_index={10}
+                    startMenuVisible={setStartMenuVisible}
+                    openApp={(apps) => handleOpenedApp("bottomBar", apps)}
+                />
             </div>
         </>
     );
