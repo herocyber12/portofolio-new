@@ -1,10 +1,10 @@
 "use client";
 
-import { BottomBar } from "@/app/component/BottomBar";
-import { StartMenu } from "@/app/component/StartMenu";
+import { BottomBar } from "@/components/BottomBar";
+import { StartMenu } from "@/components/StartMenu";
 import { useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
-import { AboutMe } from "@/app/component/AboutMe";
+import { AboutMe } from "@/components/AboutMe";
 
 export function DesktopUi() {
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);

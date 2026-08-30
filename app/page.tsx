@@ -1,6 +1,6 @@
 import img from "@/public/asset/img/725609.webp";
 import Image from "next/image";
-import {DesktopUi} from "@/app/component/DesktopUi";
+import {DesktopUi} from "@/components/DesktopUi";
 
 export default function Home() {
   return (
