@@ -69,7 +69,7 @@ export function BottomBar({ z_index = 0, openApp, startMenuVisible }: BottomBarP
                 <div className="size-11 bg-white/10 rounded-xl outline-white/10 inline-flex flex-col justify-center items-center text-white">
                     <Cog />
                 </div>
-                <div className="justify-start text-white text-sm font-semibold font-['Inter']">{time}</div>
+                <div className="justify-start text-white text-sm font-semibold">{time}</div>
             </div>
         </div>
     )

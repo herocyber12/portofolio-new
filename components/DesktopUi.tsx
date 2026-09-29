@@ -4,7 +4,9 @@ import { BottomBar } from "@/components/BottomBar";
 import { StartMenu } from "@/components/StartMenu";
 import { useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
-import { AboutMe } from "@/components/AboutMe";
+import { AboutMe } from "@/components/Widget/AboutMe";
+
+import { Experience } from "@/components/Widget/Experience";
 
 export function DesktopUi() {
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
@@ -50,6 +52,20 @@ export function DesktopUi() {
             >
                 <AboutMe />
             </Rnd>
+
+            <Rnd
+                            default={{
+                                x: 100,
+                                y: 100,
+                                width: 996,
+                                height: 720,
+                            }}
+            
+                            minWidth={720}
+                            minHeight={720}
+                        >
+                            <Experience/>
+                        </Rnd>
 
             <div className="absolute bottom-1/11 left-1/7">
                 <StartMenu

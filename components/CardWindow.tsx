@@ -7,8 +7,8 @@ type CardWindowProps = {
 
 export function CardWindow({ title, children } : CardWindowProps) {
     return (
-        <div className="z-50 w-full h-full min-w-0 min-h-0 bg-zinc-800 rounded-xl shadow-[0px_18px_40px_-12px_rgba(0,0,0,0.40)] outline outline-1 outline-offset-[-1px] outline-slate-800 inline-flex flex-col justify-start items-start overflow-hidden">
-            <div className="self-stretch h-11 px-3 bg-zinc-800 border-b border-slate-800 inline-flex justify-between items-center">
+        <div className="z-50 w-full h-full min-w-0 min-h-0 bg-zinc-900/80 rounded-2xl shadow-[0px_24px_48px_-8px_rgba(0,0,0,0.50)] outline outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-lg inline-flex flex-col justify-start items-start overflow-hidden">
+            <div className="self-stretch h-11 px-3 border-b border-slate-800 inline-flex justify-between items-center">
                 <div className="w-12 h-px opacity-0" />
                 <div className="text-center justify-start text-gray-200 text-xs font-semibold">{title}</div>
                 <div className="size- flex justify-start items-center gap-2">
@@ -17,7 +17,7 @@ export function CardWindow({ title, children } : CardWindowProps) {
                     <div className="size-3 bg-green-500 rounded-full" />
                 </div>
             </div>
-            <div className="self-stretch flex-1 min-h-0 px-4 py-3.5 bg-zinc-800 flex flex-col justify-start items-start gap-2.5 overflow-auto">
+            <div className="self-stretch flex-1 min-h-0 px-4 py-3.5 flex flex-col justify-start items-start gap-2.5 overflow-auto">
                 <div className="self-stretch inline-flex justify-start items-center">
                     {children}
                 </div>
