@@ -161,7 +161,7 @@ export function DesktopUi() {
                 ))}
             </main>
 
-            <div className="absolute bottom-20 left-4">
+            <div className="absolute bottom-20 left-4 lg:left-2/6 ">
                 <StartMenu
                     visible={startMenuVisible}
                     openApp={openApp}
