@@ -2,58 +2,65 @@ export const experience = [
     {
         key: "pt_transformasi_data_digital",
         company: "PT Transformasi Data Digital",
-        role: "Web Development Team Lead (Contract)",
+        role: "Software Engineer (Full-time)",
         duration: {
-            from: "Oct 2025",
+            from: "Nov 2024",
             to: "Present"
         },
-        description: "Lead delivery and maintain client websites focused on top-up systems and digital transaction platforms.",
+        description: "Maintained and developed client websites focused on top-up systems and digital transaction flows using PHP Native OOP, Laravel, and MySQL.",
         technologies: [
             "PHP Native",
+            "Laravel",
             "MySQL",
             "REST API",
-            "Team Leadership"
+            "Third-party APIs"
         ],
         keyAchievement: [
-            "Lead client communication, align project scope, and coordinate delivery across the team.",
-            "Delegate work by team members' skills and capacity while contributing directly to API development.",
-            "Monitor ad bot performance and end-to-end digital transaction flows.",
-            "Established structured team discussions that improved coordination and reduced miscommunication."
+            "Monitored ad bot performance and ensured smooth client transaction pipelines.",
+            "Participated in API development for client integrations and maintained API documentation as requirements and implementations evolved.",
+            "Integrated third-party APIs, including Coda and domain provisioning, into client top-up websites.",
+            "Established structured discussions with cross-functional teams, reducing miscommunication."
         ]
     },
     {
         key: "toktik",
         company: "TokTik Indonesia",
-        role: "Co-Founder & Backend Engineer",
+        role: "Software Engineer (Side Project)",
         duration: {
-            from: "Aug 2025",
+            from: "August 2025",
             to: "Present"
         },
-        description: "Co-founded an electricity token and digital top-up platform with active users and revenue, built as a hybrid Laravel and Go system.",
+        description: "Built and maintained the backend using Laravel, Golang, MySQL, and REST APIs for an electricity token and digital top-up platform serving 2,301+ customers.",
         technologies: [
             "Laravel",
             "Golang",
             "MySQL",
+            "Redis",
+            "gRPC",
+            "Raw SQL",
             "Docker",
             "GitHub Actions",
-            "API Security"
+            "Midtrans",
+            "Digiflazz"
         ],
         keyAchievement: [
-            "Migrated product and transaction APIs to Go while retaining Laravel for authentication and the admin dashboard.",
-            "Maintain API and server security, and optimize infrastructure for production traffic.",
-            "Coordinate service integration and deployments with frontend and cross-functional teams.",
-            "Set up automated deployment with GitHub Actions and Docker Hub."
+            "Migrated high-traffic product and transaction endpoints from Laravel to Go, increasing tested throughput from about 50 to 200 requests per second on the same 2-core, 2 GB server, with resource use reaching about 95% at peak load.",
+            "Implemented clean architecture with repository and service layers, raw SQL, token-based authentication and authorization, and gRPC callbacks between Laravel and Go services.",
+            "Handled asynchronous Midtrans and Digiflazz callbacks, including delayed or missing callbacks, with idempotent transaction processing.",
+            "Cached product data and authenticated user profiles as JSON in Redis with TTL-based expiry to reduce MySQL reads.",
+            "Added automated unit tests to CI/CD before Docker builds and deployment to Alibaba Cloud.",
+            "Built the TokTik Agent portal with Next.js, integrating Go APIs for withdrawal and redemption flows."
         ]
     },
     {
         key: "pt_umbi_sgsgo",
         company: "PT UMBI Teknologi Indonesia",
-        role: "Senior Programmer Team Lead (Part-time)",
+        role: "Software Engineer (Freelance / Project-based)",
         duration: {
             from: "Mar 2025",
             to: "Aug 2025"
         },
-        description: "Led maintenance and development of the Solo Raya Great Sale event website.",
+        description: "Led maintenance, optimization, and development of the Solo Raya Great Sale event website using Laravel and MySQL.",
         technologies: [
             "Laravel",
             "MySQL",
@@ -61,31 +68,16 @@ export const experience = [
             "Team Leadership"
         ],
         keyAchievement: [
-            "Optimized queries and indexes across 23,000+ merchants, 5 million+ transactions, and 212,041 users.",
+            "Optimized the database across 23,000+ merchants, 5 million+ transactions, and 212,041 users through indexing and query optimization.",
+            "Managed data and monitored infrastructure stability.",
             "Planned and delegated tasks based on team capacity and skill.",
-            "Monitored infrastructure stability and coordinated user and tenant issue resolution with the admin team."
-        ]
-    },
-    {
-        key: "pt_transformasi_web_developer",
-        company: "PT Transformasi Data Digital",
-        role: "Web Developer",
-        duration: {
-            from: "Nov 2024",
-            to: "Oct 2025"
-        },
-        description: "Maintained transaction-focused client websites and contributed to B2B/B2C reseller self-service products.",
-        technologies: ["PHP Native", "MySQL", "JavaScript", "Payment Gateway", "Domain Provisioning API"],
-        keyAchievement: [
-            "Integrated payment gateways and domain provisioning to automate reseller onboarding.",
-            "Developed client API integrations and maintained digital transaction pipelines.",
-            "Worked across x45reseller.com and mitranevalis.com reseller platforms."
+            "Coordinated with the admin team on user and tenant issues, improving report turnaround and team collaboration."
         ]
     },
     {
         key: "pt_umbi_solo_raya",
         company: "PT UMBI Teknologi Indonesia",
-        role: "Web Developer (Part-time)",
+        role: "Software Engineer (Freelance / Project-based)",
         duration: {
             from: "Apr 2024",
             to: "Jul 2024"
