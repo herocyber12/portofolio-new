@@ -2,7 +2,7 @@ import { BriefcaseBusiness, CodeXml, Mail, MapPin, Phone } from "lucide-react";
 
 const contactItems = [
     { label: "Email", value: "krisnajokop@gmail.com", href: "mailto:krisnajokop@gmail.com", icon: Mail },
-    { label: "Phone", value: "+62 851-5607-8295", href: "tel:+6285156078295", icon: Phone },
+    // { label: "Phone", value: "+62 851-5607-8295", href: "tel:+6285156078295", icon: Phone },
     { label: "LinkedIn", value: "linkedin.com/in/krisna-jp", href: "https://www.linkedin.com/in/krisna-jp", icon: BriefcaseBusiness },
     { label: "GitHub", value: "github.com/herocyber12", href: "https://github.com/herocyber12", icon: CodeXml },
 ];
