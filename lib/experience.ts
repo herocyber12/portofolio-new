@@ -13,7 +13,8 @@ export const experience = [
             "Laravel",
             "MySQL",
             "REST API",
-            "Third-party APIs"
+            "Third-party APIs",
+            "Payment Gateway"
         ],
         keyAchievement: [
             "Monitored ad bot performance and ensured smooth client transaction pipelines.",
@@ -34,14 +35,14 @@ export const experience = [
         technologies: [
             "Laravel",
             "Golang",
+            "Gin",
             "MySQL",
             "Redis",
             "gRPC",
             "Raw SQL",
             "Docker",
             "GitHub Actions",
-            "Midtrans",
-            "Digiflazz"
+            "Payment Gateway"
         ],
         keyAchievement: [
             "Migrated high-traffic product and transaction endpoints from Laravel to Go, increasing tested throughput from about 50 to 200 requests per second on the same 2-core, 2 GB server, with resource use reaching about 95% at peak load.",
