@@ -15,11 +15,11 @@ import { ResearchLoadingScreen } from "@/components/ResearchLoadingScreen";
 type WindowRect = { x: number; y: number; width: number; height: number };
 
 const appTitles: Record<string, string> = {
-    about: "Profile - About Krisna",
-    experience: "Explorer - Experience",
-    projects: "Explorer - Selected Projects",
-    skills: "Profile - Technical Skills",
-    contact: "Mail - Contact Krisna",
+    about: "CRF / DOSSIER 01 · PROFILE",
+    experience: "CRF / DOSSIER 02 · EXPERIENCE",
+    projects: "CRF / DOSSIER 03 · PROJECTS",
+    skills: "CRF / DOSSIER 04 · SKILLS",
+    contact: "CRF / DOSSIER 05 · CONTACT",
 };
 
 export function DesktopUi() {
@@ -160,6 +160,11 @@ export function DesktopUi() {
                     })()
                 ))}
             </main>
+
+            <div aria-label="CRF restricted candidate dossier, file CRF-01" className="pointer-events-none absolute left-4 top-3 z-5 hidden flex-col border-l-2 border-rose-400/80 bg-black/35 py-1 pl-2.5 pr-3 font-mono backdrop-blur-sm md:flex">
+                <span className="text-[12px] font-semibold tracking-[0.14em] text-rose-200">CANDIDATE RESEARCH FEDERATION // RESTRICTED</span>
+                <span className="mt-0.5 text-[13px] tracking-[0.08em] text-white/55">CANDIDATE DOSSIER · FILE CRF-01</span>
+            </div>
 
             <div className="absolute bottom-20 left-4 lg:left-2/6 ">
                 <StartMenu
