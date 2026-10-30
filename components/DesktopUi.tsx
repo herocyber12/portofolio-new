@@ -10,6 +10,7 @@ import { Projects } from "@/components/Widget/Projects";
 import { Skills } from "@/components/Widget/Skills";
 import { Contact } from "@/components/Widget/Contact";
 import { CardWindow } from "@/components/CardWindow";
+import { ResearchLoadingScreen } from "@/components/ResearchLoadingScreen";
 
 type WindowRect = { x: number; y: number; width: number; height: number };
 
@@ -22,6 +23,7 @@ const appTitles: Record<string, string> = {
 };
 
 export function DesktopUi() {
+    const [researchComplete, setResearchComplete] = useState(false);
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
     const [openApps, setOpenApps] = useState(["about"]);
     const [activeApp, setActiveApp] = useState("about");
@@ -174,6 +176,8 @@ export function DesktopUi() {
                     setStartMenuVisible={setStartMenuVisible}
                 />
             </div>
+
+            {!researchComplete && <ResearchLoadingScreen onComplete={() => setResearchComplete(true)} />}
         </>
     );
 }
