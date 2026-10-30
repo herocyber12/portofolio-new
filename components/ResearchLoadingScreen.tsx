@@ -23,6 +23,7 @@ const researchSteps = [
 export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps) {
     const [progress, setProgress] = useState(0);
     const [activeFinding, setActiveFinding] = useState(-1);
+    const [isDeepDive, setIsDeepDive] = useState(false);
     const [isLeaving, setIsLeaving] = useState(false);
 
     useEffect(() => {
@@ -35,12 +36,18 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
 
             if (nextProgress === 100) {
                 window.clearInterval(interval);
-                setIsLeaving(true);
+                setIsDeepDive(true);
             }
         }, 40);
 
         return () => window.clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (!isDeepDive) return;
+        const timeout = window.setTimeout(() => setIsLeaving(true), 2400);
+        return () => window.clearTimeout(timeout);
+    }, [isDeepDive]);
 
     useEffect(() => {
         if (!isLeaving) return;
@@ -58,9 +65,9 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
     return (
         <section
             aria-label="Candidate Research Federation briefing"
-            className={`dossier-scanlines fixed inset-0 z-[100] flex h-[100dvh] flex-col overflow-hidden bg-[#06100f]/95 text-[#ecf5f1] backdrop-blur-md transition-opacity duration-500 ${isLeaving ? "opacity-0" : "opacity-100"}`}
+            className={`dossier-scanlines fixed inset-0 z-100 flex h-dvh flex-col overflow-hidden bg-[#06100f]/95 text-[#ecf5f1] backdrop-blur-md transition-opacity duration-500 ${isLeaving ? "opacity-0" : "opacity-100"}`}
         >
-            <div className="dossier-sweep pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-transparent via-emerald-300/[0.07] to-transparent" />
+            <div className="dossier-sweep pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-linear-to-b from-transparent via-emerald-300/[0.07] to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_68%_36%,rgba(15,92,76,0.22),transparent_58%)]" />
 
             <header className="relative z-20 flex h-16 shrink-0 items-center justify-between border-b border-emerald-100/10 px-5 sm:px-8 lg:px-12">
@@ -73,15 +80,15 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
                 </div>
                 <div className="hidden items-center gap-2 text-[10px] tracking-[0.14em] text-emerald-100/50 sm:flex">
                     <span className="size-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.75)]" />
-                    BRIEFING IN PROGRESS
+                    {isDeepDive ? "FINAL REVIEW" : "BRIEFING IN PROGRESS"}
                 </div>
             </header>
 
             <main className="relative z-20 grid min-h-0 flex-1 content-center gap-8 overflow-y-auto px-5 py-7 sm:px-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(300px,0.8fr)] lg:gap-16 lg:px-16 lg:py-10">
                 <div className="dossier-enter flex flex-col justify-center" style={{ animationDelay: "80ms" }}>
-                    <div className="mb-5 flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] text-emerald-200/60">
+                    <div role={isDeepDive ? "status" : undefined} aria-live={isDeepDive ? "polite" : undefined} className={`mb-5 flex items-center gap-3 font-medium tracking-[0.2em] transition-all duration-500 ${isDeepDive ? "text-xs text-emerald-100" : "text-[10px] text-emerald-200/60"}`}>
                         <span className="h-px w-8 bg-emerald-300/60" />
-                        CANDIDATE DOSSIER / 01
+                        {isDeepDive ? "DEEP DIVE INTO CANDIDATE" : "CANDIDATE DOSSIER / 01"}
                     </div>
                     <p className="mb-2 font-mono text-[11px] tracking-[0.16em] text-white/40">SUBJECT IDENTIFIED</p>
                     <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] sm:text-5xl lg:text-6xl">Krisna Joko<br className="hidden sm:block" /> Purjianto</h1>
@@ -93,7 +100,7 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
 
                     <div className="mt-9 max-w-2xl border-l border-emerald-300/40 pl-4 sm:pl-5">
                         <div className="mb-3 text-[10px] font-semibold tracking-[0.16em] text-emerald-100/50">RESEARCH FINDINGS</div>
-                        <div aria-live="polite" className="min-h-[102px] space-y-3">
+                        <div aria-live="polite" className="min-h-25.5 space-y-3">
                             {findings.map((finding, index) => (
                                 <div key={finding.label} className={`grid grid-cols-[96px_1fr] gap-3 transition-all duration-500 sm:grid-cols-[118px_1fr] ${index <= activeFinding ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0"}`}>
                                     <span className="font-mono text-[9px] tracking-[0.12em] text-emerald-200/50">{finding.label}</span>
@@ -116,7 +123,7 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
                             const isCurrent = currentStep === index && progress < 100;
 
                             return (
-                                <div key={step} className="flex min-h-12 items-center gap-3 border-b border-white/[0.06] py-3">
+                                <div key={step} className="flex min-h-12 items-center gap-3 border-b border-white/6 py-3">
                                     <span className={`flex size-5 shrink-0 items-center justify-center border font-mono text-[9px] ${isComplete ? "border-emerald-300/70 text-emerald-200" : isCurrent ? "border-emerald-100/50 text-emerald-100" : "border-white/15 text-white/25"}`}>
                                         {isComplete ? "✓" : `0${index + 1}`}
                                     </span>
@@ -130,7 +137,7 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
                     <div className="mt-7 flex items-end justify-between font-mono">
                         <div>
                             <div className="text-[9px] tracking-[0.16em] text-white/35">FILE STATUS</div>
-                            <div className="mt-1 text-xs tracking-[0.13em] text-emerald-200">{progress === 100 ? "READY FOR REVIEW" : "ASSEMBLING DOSSIER"}</div>
+                            <div className="mt-1 text-xs tracking-[0.13em] text-emerald-200">{isDeepDive ? "DEEP DIVE IN PROGRESS" : "ASSEMBLING DOSSIER"}</div>
                         </div>
                         <div className="text-2xl tabular-nums text-emerald-100">{String(progress).padStart(3, "0")}<span className="text-sm text-emerald-100/50">%</span></div>
                     </div>
