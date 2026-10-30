@@ -106,7 +106,7 @@ export function DesktopUi() {
 
     const renderApp = (app: string) => {
         switch (app) {
-            case "about": return <AboutMe />;
+            case "about": return <AboutMe onOpenApp={openApp} />;
             case "experience": return <Experience />;
             case "projects": return <Projects />;
             case "skills": return <Skills />;

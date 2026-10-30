@@ -12,7 +12,7 @@ export function Contact() {
         <div className="flex h-full w-full flex-col gap-5 overflow-y-auto p-2 text-white sm:p-5">
             <div>
                 <h2 className="text-xl font-semibold">Get in touch</h2>
-                <p className="mt-1 text-sm text-white/55">Surakarta, Central Java, Indonesia · Open to relocate to Singapore</p>
+                <p className="mt-1 text-sm text-white/55">Surakarta, Central Java, Indonesia · Open to relocate domestically and internationally</p>
             </div>
             <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
                 {contactItems.map(({ label, value, href, icon: Icon }) => (
