@@ -1,62 +1,31 @@
 "use client";
-import {User,Folder, Briefcase,Code, Mail} from "lucide-react";
-import {useState,useEffect} from "react";
+import { UserRound, BriefcaseBusiness, FolderKanban, Code2, Mail } from "lucide-react";
 type StartMenuProps = {
     visible?: boolean;
-    openApp?: (apps: string[]) => void; 
+    openApp: (app: string) => void;
 }
 
 export function StartMenu({ visible, openApp }: StartMenuProps) {
     if (!visible) return null;
 
-    const [appOpened, setAppOpened] = useState<string[]>([])
+    const apps = [
+        { id: "about", label: "About Me", icon: UserRound },
+        { id: "experience", label: "Experience", icon: BriefcaseBusiness },
+        { id: "projects", label: "Projects", icon: FolderKanban },
+        { id: "skills", label: "Technical Skills", icon: Code2 },
+        { id: "contact", label: "Contact", icon: Mail },
+    ];
 
-    useEffect(()=>{
-        openApp?.(appOpened)
-    },[appOpened])
-
-    const handleOpenedApp = (app: string) => {
-        setAppOpened((prev) => {
-            if (prev.includes(app)) {
-                return prev.filter((item) => item !== app);
-            }
-
-            return [...prev, app];
-        });
-    }
     return (
-        <div className="w-72 h-60 bg-gradient-to-r from-black/40 to-black/20 rounded-2xl shadow-[0px_18px_40px_-12px_rgba(0,0,0,0.40)] outline outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-md inline-flex flex-col justify-start items-start overflow-hidden">
-            <div className="self-stretch flex-1 px-2 py-3 flex flex-col justify-start items-start gap-1">
-                <div onClick={() => handleOpenedApp("tes")} className="group self-stretch h-10 px-3 py-2 rounded-[10px] inline-flex justify-start items-center gap-3 transition-all duration-200 hover:bg-white/10 hover:outline-white/20">
-                    <Folder className="text-white"/>
-                    <div className="justify-start text-white/70 text-sm font-medium transition-colors duration-200 group-hover:text-white group-hover:font-semibold">
-                        Projects
-                    </div>
-                </div>
-                <div onClick={() => handleOpenedApp("about_me")} className="group self-stretch h-10 px-3 py-2 rounded-[10px] inline-flex justify-start items-center gap-3 transition-all duration-200 hover:bg-white/10 hover:outline-white/20">
-                    <User className="text-white"/>
-                    <div className="justify-start text-white/70 text-sm font-medium transition-colors duration-200 group-hover:text-white group-hover:font-semibold">
-                        About Me
-                    </div>
-                </div>
-                <div onClick={() => handleOpenedApp("tes")} className="group self-stretch h-10 px-3 py-2 rounded-[10px] inline-flex justify-start items-center gap-3 transition-all duration-200 hover:bg-white/10 hover:outline-white/20">
-                    <Briefcase className="text-white"/>
-                    <div className="justify-start text-white/70 text-sm font-medium transition-colors duration-200 group-hover:text-white group-hover:font-semibold">
-                        Experience
-                    </div>
-                </div>
-                <div onClick={() => handleOpenedApp("tes")} className="group self-stretch h-10 px-3 py-2 rounded-[10px] inline-flex justify-start items-center gap-3 transition-all duration-200 hover:bg-white/10 hover:outline-white/20">
-                    <Code className="text-white"/>
-                    <div className="justify-start text-white/70 text-sm font-medium transition-colors duration-200 group-hover:text-white group-hover:font-semibold">
-                        Skills
-                    </div>
-                </div>
-                <div onClick={() => handleOpenedApp("tes")} className="group self-stretch h-10 px-3 py-2 rounded-[10px] inline-flex justify-start items-center gap-3 transition-all duration-200 hover:bg-white/10 hover:outline-white/20">
-                    <Mail className="text-white"/>
-                    <div className="justify-start text-white/70 text-sm font-medium transition-colors duration-200 group-hover:text-white group-hover:font-semibold">
-                        Contact
-                    </div>
-                </div>
+        <div className="w-72 rounded-xl border border-white/10 bg-zinc-950/75 p-2 shadow-[0px_18px_40px_-12px_rgba(0,0,0,0.40)] backdrop-blur-xl">
+            <div className="px-3 py-2 text-xs font-semibold uppercase text-white/45">Krisna Joko Purjianto</div>
+            <div className="flex flex-col gap-1">
+                {apps.map(({ id, label, icon: Icon }) => (
+                    <button key={id} type="button" onClick={() => openApp(id)} className="group flex h-10 items-center gap-3 rounded-lg px-3 text-left text-white/75 transition-colors hover:bg-white/10 hover:text-white">
+                        <Icon size={18} />
+                        <span className="text-sm font-medium">{label}</span>
+                    </button>
+                ))}
             </div>
         </div>
     );
