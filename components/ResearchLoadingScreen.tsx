@@ -70,7 +70,7 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
             <div className="dossier-sweep pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-linear-to-b from-transparent via-emerald-300/[0.07] to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_68%_36%,rgba(15,92,76,0.22),transparent_58%)]" />
 
-            <header className="relative z-20 flex h-16 shrink-0 items-center justify-between border-b border-emerald-100/10 px-5 sm:px-8 lg:px-12">
+            <header className="relative z-20 flex min-h-16 shrink-0 items-center justify-between border-b border-emerald-100/10 px-5 sm:px-8 lg:px-12" style={{ minHeight: "calc(4rem + env(safe-area-inset-top))", paddingTop: "calc(1rem + env(safe-area-inset-top))" }}>
                 <div className="flex items-center gap-3">
                     <div className="flex size-9 items-center justify-center border border-emerald-300/50 text-xs font-bold tracking-widest text-emerald-200">CRF</div>
                     <div>
@@ -154,7 +154,7 @@ export function ResearchLoadingScreen({ onComplete }: ResearchLoadingScreenProps
                 </aside>
             </main>
 
-            <footer className="relative z-20 flex shrink-0 items-center justify-between gap-4 border-t border-emerald-100/10 px-5 py-4 sm:px-8 lg:px-12">
+            <footer className="relative z-20 flex shrink-0 items-center justify-between gap-4 border-t border-emerald-100/10 px-5 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:px-8 lg:px-12">
                 <div className="font-mono text-[9px] tracking-[0.08em] text-white/35 sm:text-[10px]">
                     <span className="text-emerald-200/60">CRF</span> · CANDIDATE RESEARCH FEDERATION · PROFILE BRIEFING
                 </div>

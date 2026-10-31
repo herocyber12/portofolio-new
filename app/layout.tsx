@@ -1,5 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "Krisna Joko Purjianto | Backend Developer & Team Lead",
@@ -12,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
     >
-      <body className="relative w-full h-screen overflow-hidden">
+      <body className="relative h-dvh w-full overflow-hidden">
         {children}
       </body>
     </html>

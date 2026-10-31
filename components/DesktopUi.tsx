@@ -27,17 +27,30 @@ export function DesktopUi() {
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
     const [openApps, setOpenApps] = useState(["about"]);
     const [activeApp, setActiveApp] = useState("about");
-    const [viewport, setViewport] = useState<{ width: number; height: number } | null>(null);
+    const [viewport, setViewport] = useState<{ width: number; height: number; safeAreaTop: number; safeAreaBottom: number } | null>(null);
     const [minimizedApps, setMinimizedApps] = useState<string[]>([]);
     const [maximizedApps, setMaximizedApps] = useState<string[]>([]);
     const [windowRects, setWindowRects] = useState<Record<string, WindowRect>>({});
     const [restoreRects, setRestoreRects] = useState<Record<string, WindowRect>>({});
 
-    const screen = viewport ?? { width: 1280, height: 800 };
+    const screen = viewport ?? { width: 1280, height: 800, safeAreaTop: 0, safeAreaBottom: 0 };
     const isCompactViewport = screen.width < 640;
     const windowWidth = Math.max(1, Math.min(900, screen.width - (isCompactViewport ? 16 : 32)));
-    const workspaceHeight = Math.max(1, screen.height - 80);
+    const workspaceHeight = Math.max(1, screen.height - screen.safeAreaTop - screen.safeAreaBottom - 80);
     const windowHeight = Math.max(1, Math.min(640, workspaceHeight - (isCompactViewport ? 16 : 24)));
+    const maxWindowWidth = Math.min(900, screen.width);
+    const maxWindowHeight = Math.min(640, workspaceHeight);
+
+    const fitWindowRect = (rect: WindowRect): WindowRect => {
+        const width = Math.min(rect.width, maxWindowWidth);
+        const height = Math.min(rect.height, maxWindowHeight);
+        return {
+            x: Math.max(0, Math.min(rect.x, screen.width - width)),
+            y: Math.max(0, Math.min(rect.y, workspaceHeight - height)),
+            width,
+            height,
+        };
+    };
 
     const getDefaultRect = (index: number): WindowRect => ({
         x: isCompactViewport ? 8 : Math.max(12, Math.min(72 + index * 22, screen.width - windowWidth - 12)),
@@ -47,10 +60,24 @@ export function DesktopUi() {
     });
 
     useEffect(() => {
-        const updateViewport = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
+        const updateViewport = () => {
+            const visualViewport = window.visualViewport;
+            const safeAreaTop = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-top")) || 0;
+            const safeAreaBottom = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-bottom")) || 0;
+            setViewport({
+                width: Math.round(visualViewport?.width ?? window.innerWidth),
+                height: Math.round(visualViewport?.height ?? window.innerHeight),
+                safeAreaTop,
+                safeAreaBottom,
+            });
+        };
         updateViewport();
         window.addEventListener("resize", updateViewport);
-        return () => window.removeEventListener("resize", updateViewport);
+        window.visualViewport?.addEventListener("resize", updateViewport);
+        return () => {
+            window.removeEventListener("resize", updateViewport);
+            window.visualViewport?.removeEventListener("resize", updateViewport);
+        };
     }, []);
 
     const openApp = (app: string) => {
@@ -91,13 +118,13 @@ export function DesktopUi() {
 
     const toggleMaximize = (app: string, index: number) => {
         if (maximizedApps.includes(app)) {
-            const restoreRect = restoreRects[app] ?? getDefaultRect(index);
+            const restoreRect = fitWindowRect(restoreRects[app] ?? getDefaultRect(index));
             setWindowRects((current) => ({ ...current, [app]: restoreRect }));
             setMaximizedApps((current) => current.filter((item) => item !== app));
             return;
         }
 
-        const currentRect = windowRects[app] ?? getDefaultRect(index);
+        const currentRect = fitWindowRect(windowRects[app] ?? getDefaultRect(index));
         setRestoreRects((current) => ({ ...current, [app]: currentRect }));
         setWindowRects((current) => ({
             ...current,
@@ -119,11 +146,13 @@ export function DesktopUi() {
 
     return (
         <>
-            <main className="absolute inset-x-0 top-0 bottom-20">
+            <main className="absolute inset-x-0" style={{ top: "var(--safe-area-top)", bottom: "calc(5rem + var(--safe-area-bottom))" }}>
                 {viewport && openApps.map((app, index) => (
                     minimizedApps.includes(app) ? null : (() => {
-                        const rect = windowRects[app] ?? getDefaultRect(index);
                         const isMaximized = maximizedApps.includes(app);
+                        const rect = isMaximized
+                            ? { x: 0, y: 0, width: screen.width, height: workspaceHeight }
+                            : fitWindowRect(windowRects[app] ?? getDefaultRect(index));
 
                         return (
                             <Rnd
@@ -132,8 +161,8 @@ export function DesktopUi() {
                                 size={{ width: rect.width, height: rect.height }}
                                 minWidth={Math.min(isCompactViewport ? 280 : 320, rect.width)}
                                 minHeight={Math.min(isCompactViewport ? 220 : 300, rect.height)}
-                                maxWidth={Math.min(900, screen.width)}
-                                maxHeight={Math.min(640, workspaceHeight)}
+                                maxWidth={isMaximized ? screen.width : maxWindowWidth}
+                                maxHeight={maxWindowHeight}
                                 enableResizing={!isMaximized}
                                 disableDragging={isMaximized}
                                 bounds="parent"
@@ -165,19 +194,19 @@ export function DesktopUi() {
                 ))}
             </main>
 
-            <div aria-label="CRF restricted candidate dossier, file CRF-01" className="pointer-events-none absolute left-4 top-3 z-5 hidden flex-col border-l-2 border-rose-400/80 bg-black/35 py-1 pl-2.5 pr-3 font-mono backdrop-blur-sm md:flex">
+            <div aria-label="CRF restricted candidate dossier, file CRF-01" className="pointer-events-none absolute left-4 z-5 hidden flex-col border-l-2 border-rose-400/80 bg-black/35 py-1 pl-2.5 pr-3 font-mono backdrop-blur-sm md:flex" style={{ top: "calc(0.75rem + var(--safe-area-top))" }}>
                 <span className="text-[12px] font-semibold tracking-[0.14em] text-rose-200">CANDIDATE RESEARCH FEDERATION // RESTRICTED</span>
                 <span className="mt-0.5 text-[13px] tracking-[0.08em] text-white/55">CANDIDATE DOSSIER · FILE CRF-01</span>
             </div>
 
-            <div className="absolute bottom-20 left-4 lg:left-2/6 ">
+            <div className="absolute left-4 lg:left-2/6" style={{ bottom: "calc(5rem + var(--safe-area-bottom))" }}>
                 <StartMenu
                     visible={startMenuVisible}
                     openApp={openApp}
                 />
             </div>
 
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+            <div className="absolute left-1/2 -translate-x-1/2" style={{ bottom: "calc(0.75rem + var(--safe-area-bottom))" }}>
                 <BottomBar
                     openApps={openApps}
                     openApp={openApp}
