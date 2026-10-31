@@ -42,12 +42,13 @@ export const experience = [
             "Raw SQL",
             "Docker",
             "GitHub Actions",
-            "Payment Gateway"
+            "Payment Gateway",
+            "API Integration"
         ],
         keyAchievement: [
             "Migrated high-traffic product and transaction endpoints from Laravel to Go, increasing tested throughput from about 50 to 200 requests per second on the same 2-core, 2 GB server, with resource use reaching about 95% at peak load.",
             "Implemented clean architecture with repository and service layers, raw SQL, token-based authentication and authorization, and gRPC callbacks between Laravel and Go services.",
-            "Handled asynchronous Midtrans and Digiflazz callbacks, including delayed or missing callbacks, with idempotent transaction processing.",
+            "Handled asynchronous payment gateway and digital product aggregator callbacks, including delayed or missing callbacks, with idempotent transaction processing.",
             "Cached product data and authenticated user profiles as JSON in Redis with TTL-based expiry to reduce MySQL reads.",
             "Added automated unit tests to CI/CD before Docker builds and deployment to Alibaba Cloud.",
             "Built the TokTik Agent portal with Next.js, integrating Go APIs for withdrawal and redemption flows."
