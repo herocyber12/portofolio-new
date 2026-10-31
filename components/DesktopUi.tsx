@@ -10,6 +10,7 @@ import { Projects } from "@/components/Widget/Projects";
 import { Skills } from "@/components/Widget/Skills";
 import { Contact } from "@/components/Widget/Contact";
 import { CardWindow } from "@/components/CardWindow";
+import { ConceptDialog } from "@/components/ConceptDialog";
 import { ResearchLoadingScreen } from "@/components/ResearchLoadingScreen";
 
 type WindowRect = { x: number; y: number; width: number; height: number };
@@ -25,6 +26,7 @@ const appTitles: Record<string, string> = {
 export function DesktopUi() {
     const [researchComplete, setResearchComplete] = useState(false);
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
+    const [conceptVisible, setConceptVisible] = useState(false);
     const [openApps, setOpenApps] = useState(["about"]);
     const [activeApp, setActiveApp] = useState("about");
     const [viewport, setViewport] = useState<{ width: number; height: number; safeAreaTop: number; safeAreaBottom: number } | null>(null);
@@ -203,6 +205,10 @@ export function DesktopUi() {
                 <StartMenu
                     visible={startMenuVisible}
                     openApp={openApp}
+                    onOpenConcept={() => {
+                        setConceptVisible(true);
+                        setStartMenuVisible(false);
+                    }}
                 />
             </div>
 
@@ -215,6 +221,7 @@ export function DesktopUi() {
                 />
             </div>
 
+            {conceptVisible && <ConceptDialog onClose={() => setConceptVisible(false)} />}
             {!researchComplete && <ResearchLoadingScreen onComplete={() => setResearchComplete(true)} />}
         </>
     );

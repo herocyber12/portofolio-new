@@ -1,11 +1,12 @@
 "use client";
-import { UserRound, BriefcaseBusiness, FolderKanban, Code2, Mail } from "lucide-react";
+import { UserRound, BriefcaseBusiness, FolderKanban, Code2, Mail, Info } from "lucide-react";
 type StartMenuProps = {
     visible?: boolean;
     openApp: (app: string) => void;
+    onOpenConcept: () => void;
 }
 
-export function StartMenu({ visible, openApp }: StartMenuProps) {
+export function StartMenu({ visible, openApp, onOpenConcept }: StartMenuProps) {
     if (!visible) return null;
 
     const apps = [
@@ -26,6 +27,12 @@ export function StartMenu({ visible, openApp }: StartMenuProps) {
                         <span className="text-sm font-medium">{label}</span>
                     </button>
                 ))}
+            </div>
+            <div className="mt-2 border-t border-white/10 pt-2">
+                <button type="button" onClick={onOpenConcept} className="group flex h-10 w-full items-center gap-3 rounded-lg px-3 text-left text-white/75 transition-colors hover:bg-white/10 hover:text-white">
+                    <Info size={18} />
+                    <span className="text-sm font-medium">About the concept</span>
+                </button>
             </div>
         </div>
     );
