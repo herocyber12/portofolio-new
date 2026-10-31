@@ -12,6 +12,7 @@ import { Contact } from "@/components/Widget/Contact";
 import { CardWindow } from "@/components/CardWindow";
 import { ConceptDialog } from "@/components/ConceptDialog";
 import { ResearchLoadingScreen } from "@/components/ResearchLoadingScreen";
+import { ArrowUpRight, Info, X } from "lucide-react";
 
 type WindowRect = { x: number; y: number; width: number; height: number };
 
@@ -27,6 +28,7 @@ export function DesktopUi() {
     const [researchComplete, setResearchComplete] = useState(false);
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
     const [conceptVisible, setConceptVisible] = useState(false);
+    const [conceptPromptVisible, setConceptPromptVisible] = useState(false);
     const [openApps, setOpenApps] = useState(["about"]);
     const [activeApp, setActiveApp] = useState("about");
     const [viewport, setViewport] = useState<{ width: number; height: number; safeAreaTop: number; safeAreaBottom: number } | null>(null);
@@ -62,6 +64,17 @@ export function DesktopUi() {
     });
 
     useEffect(() => {
+        if (!researchComplete) return;
+
+        const showTimer = window.setTimeout(() => setConceptPromptVisible(true), 900);
+        const hideTimer = window.setTimeout(() => setConceptPromptVisible(false), 9000);
+        return () => {
+            window.clearTimeout(showTimer);
+            window.clearTimeout(hideTimer);
+        };
+    }, [researchComplete]);
+
+    useEffect(() => {
         const updateViewport = () => {
             const visualViewport = window.visualViewport;
             const safeAreaTop = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-top")) || 0;
@@ -86,6 +99,12 @@ export function DesktopUi() {
         setOpenApps((current) => current.includes(app) ? current : [...current, app]);
         setMinimizedApps((current) => current.filter((item) => item !== app));
         setActiveApp(app);
+        setStartMenuVisible(false);
+    };
+
+    const openConcept = () => {
+        setConceptVisible(true);
+        setConceptPromptVisible(false);
         setStartMenuVisible(false);
     };
 
@@ -205,10 +224,7 @@ export function DesktopUi() {
                 <StartMenu
                     visible={startMenuVisible}
                     openApp={openApp}
-                    onOpenConcept={() => {
-                        setConceptVisible(true);
-                        setStartMenuVisible(false);
-                    }}
+                    onOpenConcept={openConcept}
                 />
             </div>
 
@@ -221,6 +237,37 @@ export function DesktopUi() {
                 />
             </div>
 
+            {conceptPromptVisible && !conceptVisible && (
+                <aside
+                    role="status"
+                    className="dossier-enter fixed right-4 z-60 w-[min(20rem,calc(100vw-2rem))] border border-white/10 bg-[#111b1b]/95 text-white shadow-[0px_18px_40px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:right-6"
+                    style={{ top: "calc(1rem + var(--safe-area-top))" }}
+                >
+                    <div className="flex items-start gap-3 p-4">
+                        <Info className="mt-0.5 shrink-0 text-emerald-200/75" size={18} />
+                        <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium">New to this desktop?</p>
+                            <p className="mt-1 text-xs leading-5 text-white/55">See why this portfolio is framed as a candidate dossier.</p>
+                            <button
+                                type="button"
+                                onClick={openConcept}
+                                className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-emerald-200 transition-colors hover:text-emerald-100 focus-visible:outline-2 focus-visible:outline-emerald-200"
+                            >
+                                About the concept <ArrowUpRight size={14} />
+                            </button>
+                        </div>
+                        <button
+                            type="button"
+                            aria-label="Dismiss concept introduction"
+                            title="Dismiss"
+                            onClick={() => setConceptPromptVisible(false)}
+                            className="-mr-1 -mt-1 flex size-7 shrink-0 items-center justify-center text-white/45 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-200"
+                        >
+                            <X size={16} />
+                        </button>
+                    </div>
+                </aside>
+            )}
             {conceptVisible && <ConceptDialog onClose={() => setConceptVisible(false)} />}
             {!researchComplete && <ResearchLoadingScreen onComplete={() => setResearchComplete(true)} />}
         </>
