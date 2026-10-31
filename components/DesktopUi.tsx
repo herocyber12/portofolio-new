@@ -162,7 +162,7 @@ export function DesktopUi() {
                                 minWidth={Math.min(isCompactViewport ? 280 : 320, rect.width)}
                                 minHeight={Math.min(isCompactViewport ? 220 : 300, rect.height)}
                                 maxWidth={isMaximized ? screen.width : maxWindowWidth}
-                                maxHeight={maxWindowHeight}
+                                maxHeight={isMaximized ? workspaceHeight : maxWindowHeight}
                                 enableResizing={!isMaximized}
                                 disableDragging={isMaximized}
                                 bounds="parent"
