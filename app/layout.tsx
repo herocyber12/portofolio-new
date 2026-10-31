@@ -8,9 +8,22 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Krisna Joko Purjianto | Backend Developer & Team Lead",
-  keywords: "software engineer, senior software engineer, backend engineer, fullstack, php developer, golang developer, node js developer, php, golang, node js, go, go lang, next js, react js",
-  description: "Backend Developer and Team Lead building production web applications, APIs, and transaction-driven systems.",
+  title: "Krisna Joko Purjianto | Software Engineer",
+  keywords: [
+    "software engineer",
+    "backend development",
+    "PHP",
+    "Laravel",
+    "Golang",
+    "REST API",
+    "MySQL",
+    "transaction systems",
+    "JavaScript",
+    "Vue.js",
+    "React.js",
+    "Next.js",
+  ],
+  description: "Software Engineer with 2+ years of experience building production web applications, REST APIs, and transaction systems with PHP, Laravel, and Golang, with experience across JavaScript, Vue.js, React, and Next.js.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
