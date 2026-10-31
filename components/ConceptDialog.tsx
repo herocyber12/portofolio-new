@@ -47,9 +47,9 @@ export function ConceptDialog({ onClose }: ConceptDialogProps) {
                 <div className="space-y-6 px-5 py-6 sm:px-7 sm:py-7">
                     <div>
                         <p className="mb-2 text-[10px] font-semibold tracking-[0.16em] text-emerald-200/65">THE IDEA</p>
-                        <h2 id="concept-title" className="text-2xl font-semibold leading-tight sm:text-3xl">A portfolio built for a fast read.</h2>
+                        <h2 id="concept-title" className="text-2xl font-semibold leading-tight sm:text-3xl">A candidate dossier, presented as a desktop.</h2>
                         <p className="mt-3 text-sm leading-6 text-white/70">
-                            Recruiters often have limited time to understand a candidate. This portfolio turns that challenge into an intelligence dossier: a focused overview of my profile, experience, skills, projects, and contact details, made for quick review.
+                            This portfolio reimagines my profile as an interactive desktop, where each window reveals a different part of my work. Instead of promising the quickest possible scan, it makes exploring my experience, skills, and projects feel like opening a candidate dossier at a research station.
                         </p>
                     </div>
 
