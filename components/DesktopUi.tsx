@@ -27,19 +27,21 @@ export function DesktopUi() {
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
     const [openApps, setOpenApps] = useState(["about"]);
     const [activeApp, setActiveApp] = useState("about");
-    const [viewport, setViewport] = useState({ width: 1280, height: 800 });
+    const [viewport, setViewport] = useState<{ width: number; height: number } | null>(null);
     const [minimizedApps, setMinimizedApps] = useState<string[]>([]);
     const [maximizedApps, setMaximizedApps] = useState<string[]>([]);
     const [windowRects, setWindowRects] = useState<Record<string, WindowRect>>({});
     const [restoreRects, setRestoreRects] = useState<Record<string, WindowRect>>({});
 
-    const windowWidth = Math.min(900, Math.max(320, viewport.width - 32));
-    const windowHeight = Math.min(640, Math.max(300, viewport.height - 116));
-    const workspaceHeight = Math.max(180, viewport.height - 80);
+    const screen = viewport ?? { width: 1280, height: 800 };
+    const isCompactViewport = screen.width < 640;
+    const windowWidth = Math.max(1, Math.min(900, screen.width - (isCompactViewport ? 16 : 32)));
+    const workspaceHeight = Math.max(1, screen.height - 80);
+    const windowHeight = Math.max(1, Math.min(640, workspaceHeight - (isCompactViewport ? 16 : 24)));
 
     const getDefaultRect = (index: number): WindowRect => ({
-        x: Math.max(12, Math.min(72 + index * 22, viewport.width - windowWidth - 12)),
-        y: Math.max(12, Math.min(48 + index * 20, viewport.height - windowHeight - 100)),
+        x: isCompactViewport ? 8 : Math.max(12, Math.min(72 + index * 22, screen.width - windowWidth - 12)),
+        y: isCompactViewport ? 8 : Math.max(12, Math.min(48 + index * 20, screen.height - windowHeight - 100)),
         width: windowWidth,
         height: windowHeight,
     });
@@ -99,7 +101,7 @@ export function DesktopUi() {
         setRestoreRects((current) => ({ ...current, [app]: currentRect }));
         setWindowRects((current) => ({
             ...current,
-            [app]: { x: 0, y: 0, width: viewport.width, height: workspaceHeight },
+            [app]: { x: 0, y: 0, width: screen.width, height: workspaceHeight },
         }));
         setMaximizedApps((current) => [...current, app]);
     };
@@ -118,7 +120,7 @@ export function DesktopUi() {
     return (
         <>
             <main className="absolute inset-x-0 top-0 bottom-20">
-                {openApps.map((app, index) => (
+                {viewport && openApps.map((app, index) => (
                     minimizedApps.includes(app) ? null : (() => {
                         const rect = windowRects[app] ?? getDefaultRect(index);
                         const isMaximized = maximizedApps.includes(app);
@@ -128,8 +130,10 @@ export function DesktopUi() {
                                 key={app}
                                 position={{ x: rect.x, y: rect.y }}
                                 size={{ width: rect.width, height: rect.height }}
-                                minWidth={Math.min(320, rect.width)}
-                                minHeight={Math.min(300, rect.height)}
+                                minWidth={Math.min(isCompactViewport ? 280 : 320, rect.width)}
+                                minHeight={Math.min(isCompactViewport ? 220 : 300, rect.height)}
+                                maxWidth={Math.min(900, screen.width)}
+                                maxHeight={Math.min(640, workspaceHeight)}
                                 enableResizing={!isMaximized}
                                 disableDragging={isMaximized}
                                 bounds="parent"

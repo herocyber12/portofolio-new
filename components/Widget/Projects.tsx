@@ -1,28 +1,37 @@
 import { FolderKanban } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
 
 export function Projects() {
     const [activeProjectKey, setActiveProjectKey] = useState(projects[0]?.key);
     const activeProject = projects.find((project) => project.key === activeProjectKey);
+    const activeProjectIndex = projects.findIndex((project) => project.key === activeProjectKey);
+    const activeProjectButtonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            activeProjectButtonRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        }
+    }, [activeProjectKey]);
 
     return (
-        <div className="flex h-full w-full min-w-0 text-white">
-            <aside className="w-36 shrink-0 overflow-y-auto border-r border-white/10 p-2 sm:w-56 sm:p-3">
-                <div className="flex items-center gap-2 px-2 py-2 text-xs text-white/55">
-                    <FolderKanban size={16} /> Projects
+        <div className="flex h-full w-full min-w-0 flex-col text-white md:flex-row">
+            <aside className="flex max-h-32 w-full shrink-0 flex-col overflow-hidden border-b border-white/10 p-2 md:max-h-none md:w-56 md:overflow-y-auto md:border-b-0 md:border-r md:p-3">
+                <div className="flex items-center justify-between gap-2 px-2 py-2 text-xs text-white/55">
+                    <span className="flex items-center gap-2"><FolderKanban size={16} /> Projects</span>
+                    <span className="font-mono text-[10px] text-white/40">{String(activeProjectIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
                 </div>
-                <div className="my-2 border-t border-white/10" />
-                <div className="flex flex-col gap-1">
+                <div className="my-1 border-t border-white/10 md:my-2" />
+                <div className="flex min-w-0 flex-1 flex-row snap-x snap-mandatory scroll-smooth gap-1 overflow-x-auto md:flex-col md:snap-none md:overflow-x-visible">
                     {projects.map((project) => (
-                        <button key={project.key} type="button" onClick={() => setActiveProjectKey(project.key)} className={`rounded-md px-2 py-2 text-left text-xs leading-4 transition-colors ${activeProjectKey === project.key ? "bg-white/12 text-white" : "text-white/60 hover:bg-white/8 hover:text-white"}`}>
+                        <button key={project.key} ref={activeProjectKey === project.key ? activeProjectButtonRef : null} type="button" aria-pressed={activeProjectKey === project.key} onClick={() => setActiveProjectKey(project.key)} className={`w-40 shrink-0 snap-center rounded-md px-2 py-2 text-left text-xs leading-4 transition-colors md:w-full ${activeProjectKey === project.key ? "bg-white/12 text-white" : "text-white/60 hover:bg-white/8 hover:text-white"}`}>
                             {project.name}
                         </button>
                     ))}
                 </div>
             </aside>
 
-            <section className="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6">
+            <section className="min-h-0 min-w-0 flex-1 overflow-y-auto p-3 md:p-6">
                 {activeProject && <div className="flex flex-col gap-5">
                     <header className="border-b border-white/10 pb-4">
                         <div className="text-xs text-emerald-300">{activeProject.type}</div>
