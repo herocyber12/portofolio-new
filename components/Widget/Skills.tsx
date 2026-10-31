@@ -1,10 +1,10 @@
 const skillGroups = [
-    { name: "Languages", skills: ["PHP", "Golang", "JavaScript", "TypeScript", "Node.js", "HTML5"] },
-    { name: "Frameworks", skills: ["Laravel", "Gin", "React.js", "Vue.js", "Ajax", "jQuery"] },
-    { name: "Data", skills: ["MySQL", "PostgreSQL", "Redis"] },
-    { name: "Infrastructure", skills: ["Linux", "Docker", "GitHub Actions", "Server Deployment", "CI/CD"] },
-    { name: "Architecture & APIs", skills: ["Microservices", "REST API Design", "gRPC", "SSE", "IndexedDB"] },
-    { name: "Security & Testing", skills: ["OWASP Top 10", "Vulnerability Assessment", "Penetration Testing", "k6 Load Testing", "Unit Testing"] },
+    { name: "Programming Languages", skills: ["PHP", "Golang", "JavaScript", "TypeScript", "Node.js", "HTML5", "SQL"] },
+    { name: "Frameworks & Libraries", skills: ["Laravel", "Gin", "React.js", "Next.js", "Vue.js"] },
+    { name: "Databases", skills: ["MySQL", "PostgreSQL", "Redis"] },
+    { name: "DevOps & Infrastructure", skills: ["Linux", "Git", "GitHub Actions (CI/CD)", "Docker", "Server Deployment", "gRPC", "Alibaba Cloud"] },
+    // { name: "AI-Assisted Development", skills: ["ChatGPT", "Claude", "Gemini", "Codex"] },
+    { name: "Other", skills: ["Microservices Architecture", "REST API", "Payment Gateways", "Unit Testing", "Agile/Scrum", "SDLC"] },
 ];
 
 export function Skills() {
@@ -23,7 +23,7 @@ export function Skills() {
             <div className="mt-7 border-t border-white/10 pt-4 text-sm text-white/65">
                 <span className="font-medium text-white">Education</span> · B.IT, University Duta Bangsa Surakarta · GPA 3.74
             </div>
-            <div className="mt-3 text-xs text-white/50">Cybersecurity Engineer Bootcamp · Merdeka Siber Batch #21 · Certificate of Excellence</div>
+            <div className="mt-3 text-xs text-white/50">Certificate of Excellence · Cybersecurity Engineer Bootcamp · Merdeka Siber Batch #21</div>
             <div className="mt-3 border-t border-white/10 pt-3 text-xs leading-5 text-white/50">
                 First-authored publication · LOFIAN Vol. 4 No. 1 (2024): IoT-based household energy monitoring with ESP32 and PZEM-004T sensors.
             </div>

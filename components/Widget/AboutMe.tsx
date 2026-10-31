@@ -5,8 +5,9 @@ type AboutMeProps = {
 const recruiterGuide = [
     { number: "01", app: "about", title: "Profile", description: "Role, background, and location" },
     { number: "02", app: "experience", title: "Experience", description: "Work history and responsibilities" },
-    { number: "03", app: "projects", title: "Projects", description: "Selected work and outcomes" },
-    { number: "04", app: "contact", title: "Contact", description: "Ways to get in touch" },
+    { number: "03", app: "skills", title: "Skills", description: "Technologies, tools, and methods" },
+    { number: "04", app: "projects", title: "Projects", description: "Selected work and outcomes" },
+    { number: "05", app: "contact", title: "Contact", description: "Ways to get in touch" },
 ];
 
 export function AboutMe({ onOpenApp }: AboutMeProps) {
